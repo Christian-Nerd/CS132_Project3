@@ -4,5 +4,12 @@
 #pragma once
 
 #include <iostream>
-
+#include <string>
 // TODO: Reference additional headers your program requires here.
+struct Word
+{
+	int FirstOccurance;
+	string MyWord;
+	void toUpper();
+	void toLower();
+};
