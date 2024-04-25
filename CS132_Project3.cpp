@@ -10,3 +10,17 @@ int main()
 	cout << "Hello CMake." << endl;
 	return 0;
 }
+
+void Word::toUpper() 
+{
+	transform(this->MyWord.begin(), this->MyWord.end(), this->MyWord.begin(), toUpper);
+}
+void Word::toLower() 
+{
+
+}
+bool Word::operator< (Word);
+bool Word::operator> (Word);
+bool Word::operator<= (Word);
+bool Word::operator>= (Word);
+bool Word::operator== (Word);
