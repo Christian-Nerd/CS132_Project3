@@ -39,11 +39,11 @@ struct Word
 	bool operator== (Word);
 };
 // Function Headers
-fstream getFile();
-void IntializeList(vector<string>);
-void DisplayList(ostream& out);
-void ChooseOperation(vector<string>, fstream in);
-void DoesUserWantToContinue();
+fstream GetFile();
+void IntializeList(vector<string>&);
+void DisplayList(vector<Word>&, ostream& out);
+void ChooseOperation(vector<Word>&, ostream& in);
+bool DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>
 	bool operator< (T var, Word word)

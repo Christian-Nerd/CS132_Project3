@@ -46,8 +46,23 @@ bool Word::operator== (Word term)
 	return this->MyWord == term.MyWord;
 }
 
-fstream getFile();
+fstream GetFile() 
+{
+	ifstream in;
+	cout << "Input File path: ";
+	string path;
+	cin >> path;
+	in.open(path, ios::out);
+}
 
-void IntializeList(vector);
+void IntializeList(vector<string>);
 
-void DisplayList(ostream& out);
+void DisplayList(vector<string> list, ostream& out);
+
+void ChooseOperation(vector<Word>& list, ostream& in) 
+{
+	cout << "Do you want to display all the words 
+	DisplayList(list, cout);
+}
+
+bool DoesUserWantToContinue();
