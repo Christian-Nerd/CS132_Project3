@@ -6,6 +6,9 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <sstream>
+#include <fstream>
+#include <vector>
 // TODO: Reference additional headers your program requires here.
 struct Word
 {
@@ -35,6 +38,12 @@ struct Word
 	bool operator>= (Word);
 	bool operator== (Word);
 };
+// Function Headers
+fstream getFile();
+void IntializeList(vector<string>);
+void DisplayList(ostream& out);
+void ChooseOperation(vector<string>, fstream in);
+void DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>
 	bool operator< (T var, Word word)

@@ -12,7 +12,9 @@ endif()
 project ("CS132_Project3")
 
 # Add source to this project's executable.
-add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp")
+add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp" "Quicksort.h")
+add_library(QuickSort.lib UNKNOWN IMPORTED)
+target_link_libraries(QuickSort.lib)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CS132_Project3 PROPERTY CXX_STANDARD 20)
