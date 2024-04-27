@@ -97,17 +97,17 @@ istream& operator>>(std::istream& in, Word& word)
 
 
 
-void IntializeList(vector<Word>);
-
-void DisplayList(vector<Word>& list, ostream& out) 
+void IntializeList(BST<Word> list[], ifstream file)
 {
-	for (int i = 0; i < list.size(); i++)
-	{
-		out << list[0] << endl;
-	}
+
 }
 
-void ChooseOperation(vector<Word>& list, ostream& in) 
+void DisplayList(BST<Word> list[], ostream& out) 
+{
+	list->inorder(out);
+}
+
+void ChooseOperation(BST<Word> list[], ostream& in) 
 {
 	cout << "Do you want to display all the words in the list or ";
 	DisplayList(list, cout);

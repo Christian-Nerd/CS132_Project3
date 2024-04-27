@@ -53,9 +53,9 @@ public:
 };
 // Function Headers
 std::ifstream& MakeFile();
-void IntializeList(std::vector<Word>&);
-void DisplayList(std::vector<Word>&, std::ostream& out);
-void ChooseOperation(std::vector<Word>&, std::ostream& in);
+void IntializeList(BST<Word>[], std::ifstream& in);
+void DisplayList(BST<Word>[], std::ostream& out);
+void ChooseOperation(BST<Word>[], std::ostream& in);
 bool DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>
