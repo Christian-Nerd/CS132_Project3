@@ -4,6 +4,5 @@ using namespace std;
 
 int main() 
 {
-	Quicksort();
 	return 0;
 }

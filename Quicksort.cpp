@@ -15,6 +15,7 @@ void Quicksort(T& List, int Min, int Max, int PivotIndex)
 	Quicksort(List, PivotIndex+1, Max, PivotIndex);
 
 }
+
 template <typename T>
 void Split(T& List, int Min, int Max, int& PivotIndex) 
 {

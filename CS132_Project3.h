@@ -6,6 +6,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <cctype>
 #include <sstream>
 #include <fstream>
 #include <vector>
@@ -14,11 +15,20 @@
 struct Word
 {
 	// Data
-	int FirstOccurance;
-	std::string MyWord;
+	private:
+		int FirstOccurance;
+		int count = 0;
+		std::string MyWord;
 	// Functions
+public:
 	void toUpper();
 	void toLower();
+	void SetWord(std::string);
+	void SetFirstFind(int);
+	void SetCount(int);
+	std::string GetWord();
+	int GetFirstFind();
+	int GetCount();
 	// Template Operators
 	template<typename T>
 	bool friend operator< (T, Word);
@@ -38,14 +48,14 @@ struct Word
 	bool operator<= (Word);
 	bool operator>= (Word);
 	bool operator== (Word);
-	ostream& friend operator<<(ostream& out, Word);
-	istream& friend operator>>(istream& in, Word);
+	friend std::ostream& operator<<(std::ostream& out, Word& word);
+	friend std::istream& operator>>(std::istream& in, Word& word);
 };
 // Function Headers
-fstream& GetFile();
-void IntializeList(vector<string>&);
-void DisplayList(vector<Word>&, ostream& out);
-void ChooseOperation(vector<Word>&, ostream& in);
+std::ifstream& MakeFile();
+void IntializeList(std::vector<Word>&);
+void DisplayList(std::vector<Word>&, std::ostream& out);
+void ChooseOperation(std::vector<Word>&, std::ostream& in);
 bool DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>
