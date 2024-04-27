@@ -5,12 +5,6 @@
 
 using namespace std;
 
-int main()
-{
-	cout << "Hello CMake." << endl;
-	return 0;
-}
-
 void Word::toUpper() 
 {
 	transform(this->MyWord.begin(), this->MyWord.end(), this->MyWord.begin(), toUpper);
@@ -61,7 +55,7 @@ void DisplayList(vector<string> list, ostream& out);
 
 void ChooseOperation(vector<Word>& list, ostream& in) 
 {
-	cout << "Do you want to display all the words 
+	cout << "Do you want to display all the words in the list or"
 	DisplayList(list, cout);
 }
 

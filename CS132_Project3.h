@@ -9,6 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include "BST.h"
 // TODO: Reference additional headers your program requires here.
 struct Word
 {
@@ -37,9 +38,11 @@ struct Word
 	bool operator<= (Word);
 	bool operator>= (Word);
 	bool operator== (Word);
+	ostream& friend operator<<(ostream& out, Word);
+	istream& friend operator>>(istream& in, Word);
 };
 // Function Headers
-fstream GetFile();
+fstream& GetFile();
 void IntializeList(vector<string>&);
 void DisplayList(vector<Word>&, ostream& out);
 void ChooseOperation(vector<Word>&, ostream& in);
@@ -48,43 +51,56 @@ bool DoesUserWantToContinue();
 	template<typename T>
 	bool operator< (T var, Word word)
 	{
-		return var < word.string;
+		return var < word.MyWord;
 	}
 	template<typename T>
 	bool operator< (Word word, T var)
 	{
-		return word.string < var;
+		return word.MyWord < var;
 	}
 
 	template<typename T>
-	bool operator<= (T, Word) 
+	bool operator<= (T var, Word word) 
 	{
-		return var <= word.string;
+		return var <= word.MyWord;
 	}
 	template<typename T>
-	bool operator<= (T, Word) 
+	bool operator<= (Word word, T var) 
 	{
-		return word.string <= var;
-	}
-
-	template<typename T>
-	bool operator> (Word, T)
-	{
-		return var > word.string;
-	}
-	template<typename T>
-	bool operator> (Word, T)
-	{
-		return word.string > var;
+		return word.MyWord <= var;
 	}
 
 	template<typename T>
-	bool operator>= (Word, T)
+	bool operator> (T var, Word word)
 	{
-		return var >= word.string;
+		return var > word.MyWord;
 	}
 	template<typename T>
-	bool operator>= (Word, T)
+	bool operator> (Word word, T var)
 	{
-		return word.string >= var;
+		return word.MyWord > var;
+	}
+
+	template<typename T>
+	bool operator>= (T var, Word word)
+	{
+		return var >= word.MyWord;
+	}
+
+	template<typename T>
+	bool operator>= (Word word, T var)
+	{
+		return word.MyWord >= var;
+	}
+
+	template<typename T>
+	bool operator== (T var, Word word)
+	{
+		return var == word.MyWord;
+	}
+
+	template<typename T>
+	bool operator== (Word word, T var)
+	{
+		return word.MyWord == var;
 	}

@@ -12,7 +12,7 @@ endif()
 project ("CS132_Project3")
 
 # Add source to this project's executable.
-add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp" "Quicksort.h")
+add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp" "Quicksort.h" "Quicksort.cpp")
 add_library(QuickSort.lib UNKNOWN IMPORTED)
 target_link_libraries(QuickSort.lib)
 

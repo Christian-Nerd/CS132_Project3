@@ -74,7 +74,7 @@ class BST
           containing item and its parent.
  ------------------------------------------------------------------------*/
  
-  void inorder(ostream & out) const;
+  void inorder(std::ostream & out) const;
   /*------------------------------------------------------------------------
     Inorder traversal of BST.
 
@@ -84,7 +84,7 @@ class BST
     Note: inorder uses private auxiliary function inorderAux().
  ------------------------------------------------------------------------*/
  
-  void graph(ostream & out) const;
+  void graph(std::ostream & out) const;
   /*------------------------------------------------------------------------
     Graphic output of BST.
 
@@ -128,7 +128,7 @@ class BST
        not found, and parent points to its parent.#include <iostream>
  ------------------------------------------------------------------------*/
  
-  void inorderAux(ostream & out, 
+  void inorderAux(std::ostream & out, 
                   BinNodePointer subtreePtr) const;
   /*------------------------------------------------------------------------
     Inorder traversal auxiliary function.
@@ -139,7 +139,7 @@ class BST
         output to out.
  ------------------------------------------------------------------------*/
  
-  void graphAux(ostream & out, int indent,
+  void graphAux(std::ostream & out, int indent,
                       BinNodePointer subtreeRoot) const;
   /*------------------------------------------------------------------------
     Graph auxiliary function.
@@ -213,7 +213,7 @@ inline void BST<DataType>::insert(const DataType & item)
          parent->right = locptr;
    }
    else
-      cout << "Item already in the tree\n";
+      std::cout << "Item already in the tree\n";
 }
 
 //--- Definition of remove()
@@ -228,7 +228,7 @@ void BST<DataType>::remove(const DataType & item)
 
    if (!found)
    {
-      cout << "Item not in the BST\n";
+      std::cout << "Item not in the BST\n";
       return;
    }
    //else
@@ -265,14 +265,14 @@ void BST<DataType>::remove(const DataType & item)
 
 //--- Definition of inorder()
 template <typename DataType>
-inline void BST<DataType>::inorder(ostream & out) const
+inline void BST<DataType>::inorder(std::ostream & out) const
 { 
    inorderAux(out, myRoot); 
 }
 
 //--- Definition of graph()
 template <typename DataType>
-inline void BST<DataType>::graph(ostream & out) const
+inline void BST<DataType>::graph(std::ostream & out) const
 {
 	graphAux(out, 0, myRoot); 
 }
@@ -305,7 +305,7 @@ void BST<DataType>::search2(const DataType & item, bool & found,
 
 //--- Definition of inorderAux()
 template <typename DataType>
-void BST<DataType>::inorderAux(ostream & out, 
+void BST<DataType>::inorderAux(std::ostream & out, 
                                BinNodePointer subtreeRoot) const
 {
    if (subtreeRoot != 0)
@@ -320,13 +320,13 @@ void BST<DataType>::inorderAux(ostream & out,
 #include <iomanip>
 
 template <typename DataType>
-void BST<DataType>::graphAux(ostream & out, int indent, 
+void BST<DataType>::graphAux(std::ostream & out, int indent, 
                              BinNodePointer subtreeRoot) const
 {
   if (subtreeRoot != 0)
     {
       graphAux(out, indent + 8, subtreeRoot->right);
-      out << setw(indent) << " " << subtreeRoot->data << endl;
+      out << std::setw(indent) << " " << subtreeRoot->data << std::endl;
       graphAux(out, indent + 8, subtreeRoot->left);
     }
 }

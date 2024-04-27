@@ -14,4 +14,3 @@ void Split(T& List, // List of items to sort in ascending order
 		   int& PivotIndex // Index for pivor
 	);
 //Put Implementation in header file with out it being annoying
-#include "Quicksort.lib"
