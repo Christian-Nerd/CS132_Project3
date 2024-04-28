@@ -21,7 +21,7 @@
 ---------------------------------------------------------------------------*/
 
 #include <iostream>
-
+#include "CS132_Project3.h"
 #ifndef BINARY_SEARCH_TREE
 #define BINARY_SEARCH_TREE
 

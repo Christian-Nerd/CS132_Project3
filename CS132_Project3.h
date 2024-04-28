@@ -10,6 +10,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <stdio.h>
 #include "BST.h"
 // TODO: Reference additional headers your program requires here.
 struct Word
@@ -53,6 +54,7 @@ public:
 };
 // Function Headers
 std::ifstream& MakeFile();
+bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  
 void IntializeList(BST<Word>[], std::ifstream& in);
 void DisplayList(BST<Word>[], std::ostream& out);
 void ChooseOperation(BST<Word>[], std::ostream& in);

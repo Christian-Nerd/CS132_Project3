@@ -82,6 +82,12 @@ ifstream& GetFile()
 	return in;
 }	
 
+
+bool InWord(char Current, char Next) 
+{
+	return (isspace(Current) && !isspace(Next)) || (!isspace(Current) && !isspace(Next));
+}
+
 ostream& operator<<(std::ostream& out, Word& word) 
 {
 	out << word.MyWord << "    " << word.FirstOccurance << "    " << word.count;
@@ -91,10 +97,16 @@ ostream& operator<<(std::ostream& out, Word& word)
 
 istream& operator>>(std::istream& in, Word& word) 
 {
-	
-	while (isspace(in.get()) 
+	bool isWord = true;
+	char CurrentStreamCharacter = in.get();
+	while (isWord) 
 	{
-		
+		if (!isspace(CurrentStreamCharacter) && isspace(in.peek()))
+		{
+			isWord = false;
+
+		}
+		CurrentStreamCharacter = in.get();
 	}
 	return in;
 }
