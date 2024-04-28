@@ -106,9 +106,14 @@ istream& operator>>(std::istream& in, Word& word)
 	string NewWord = "";
 	while (true) 
 	{
+		if (CurrentStreamCharacter == '\n')
+		{
+			word.IncrementCount(); // Increments count to indicate current line
+		}
 		NewWord.push_back(CurrentStreamCharacter);
 		if (!isspace(CurrentStreamCharacter) && isspace(in.peek()) || !in /* Checks if in.peek() returns eof since associativity is left to right*/) 
 		{
+			word.SetFirstFind(word.GetFirstFind() + word.GetCount()); // Uses count to assign current line to
 			word.SetWord(NewWord);
 			if (!in)
 			{
@@ -119,7 +124,6 @@ istream& operator>>(std::istream& in, Word& word)
 			{
 				word.IncrementCount(); // Increments count to indicate current line
 			}
-			word.SetFirstFind(word.GetFirstFind() + word.GetCount()); // Uses count to assign current line to
 			break;
 		}
 		CurrentStreamCharacter = in.get();
@@ -137,6 +141,8 @@ void IntializeList(BST<Word> list[], ifstream file)
 		Word NextWord;
 		NextWord.SetFirstFind(CurrentLine);
 		file >> NextWord;
+		// Use count to find current line
+		LineNumber += NextWord.GetCount();
 		for (int i = 0; i < NextWord.GetWord().size(); i++)
 		{
 			char CurrentCharacter = NextWord.GetWord().at(i);
