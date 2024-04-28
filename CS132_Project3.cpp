@@ -115,12 +115,18 @@ istream& operator>>(std::istream& in, Word& word)
 
 void IntializeList(BST<Word> list[], ifstream file)
 {
-	int Count = 0, FirstWordLine = 0;
+	int Count = 0, CurrentLine = 0;
 	while (file)
 	{
 		Word NextWord;
+		NextWord.SetFirstFind(CurrentLine);
 		file >> NextWord;
-		NextWord.
+		if(!list->search(NextWord))
+			list->insert(NextWord);
+		else
+		{
+
+		}
 	}
 	file.clear();
 	file.seekg(ios::beg);

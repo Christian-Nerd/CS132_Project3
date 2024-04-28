@@ -4,6 +4,7 @@
      empty:       Checks if a BST is empty
      search:      Search a BST for an item
      insert:      Inserts a value into a BST
+     get:         Gets a value from s BST
      remove:      Removes a value from a BST
      inorder:     Inorder traversal of a BST -- output the data values
      graph:       Output a grapical representation of a BST
@@ -21,7 +22,6 @@
 ---------------------------------------------------------------------------*/
 
 #include <iostream>
-#include "CS132_Project3.h"
 #ifndef BINARY_SEARCH_TREE
 #define BINARY_SEARCH_TREE
 
@@ -63,6 +63,15 @@ class BST
         position to maintain BST property. 
   ------------------------------------------------------------------------*/
   
+  DataType& get(const DataType & item);
+  /*------------------------------------------------------------------------
+    Insert item into BST.
+
+    Precondition:  None.
+    Postcondition: Reference for Item's data has been returned
+    
+  ------------------------------------------------------------------------*/
+
   void remove(const DataType & item);
   /*------------------------------------------------------------------------
     Remove item from BST.
@@ -216,9 +225,37 @@ inline void BST<DataType>::insert(const DataType & item)
       std::cout << "Item already in the tree\n";
 }
 
+//--- Definition of get()
+template <typename DataType>
+inline DataType& BST<DataType>::get(const DataType & item) 
+{
+   BST<DataType>::BinNodePointer 
+        locptr = myRoot,   // search pointer
+        parent = 0;        // pointer to parent of current node
+   bool found = false;     // indicates if item already in BST
+   while (!found && locptr != 0)
+   {
+      parent = locptr;
+      if (item < locptr->data)       // descend left
+         locptr = locptr->left;
+      else if (locptr->data < item)  // descend right
+         locptr = locptr->right;
+      else                           // item found
+         found = true;
+   }
+   if (!found)
+   {
+       std::cout << "Item not found" << std::endl;
+   }
+   else
+   {
+       return locptr->data;
+   }
+}
+
 //--- Definition of remove()
 template <typename DataType>
-void BST<DataType>::remove(const DataType & item)
+void BST<DataType>::remove(const DataType & item) 
 {
    bool found;                      // signals if item is found
    BST<DataType>::BinNodePointer 
