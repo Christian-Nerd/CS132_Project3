@@ -27,6 +27,7 @@ public:
 	void SetWord(std::string);
 	void SetFirstFind(int);
 	void SetCount(int);
+	void IncrementCount();
 	std::string GetWord();
 	int GetFirstFind();
 	int GetCount();

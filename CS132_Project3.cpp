@@ -31,6 +31,11 @@ void Word::SetCount(int Tracker)
 	this->count = Tracker;
 }
 
+void Word::IncrementCount() 
+{
+	this->count += 1;
+}
+
 string Word::GetWord() 
 {
 	return this->MyWord;
@@ -67,7 +72,6 @@ bool operator>= (Word term1, Word term2)
 	return term1.GetWord() >= term2.GetWord();
 }
 
-
 bool operator== (Word term1, Word term2) 
 {
 	return term1.GetWord() == term2.GetWord();
@@ -98,14 +102,21 @@ ostream& operator<<(std::ostream& out, Word& word)
 
 istream& operator>>(std::istream& in, Word& word) 
 {
-	bool isWord = true;
 	char CurrentStreamCharacter = in.get();
-	while (isWord) 
+	string NewWord = "";
+	while (true) 
 	{
-		if (!isspace(CurrentStreamCharacter) && isspace(in.peek()))
+		NewWord.push_back(CurrentStreamCharacter);
+		if (!isspace(CurrentStreamCharacter) && isspace(in.peek()) || !in /* Checks if in.peek() returns eof since associativity is left to right*/) 
 		{
-			isWord = false;
-
+			word.SetWord(NewWord);
+			if (!in)
+			{
+				in.clear();
+				in.seekg(ios::beg);
+			}
+			else if (in.peek() == '\n')
+			break;
 		}
 		CurrentStreamCharacter = in.get();
 	}
@@ -126,7 +137,7 @@ void IntializeList(BST<Word> list[], ifstream file)
 			list->insert(NextWord);
 		else
 		{
-
+			list->get(NextWord).IncrementCount();
 		}
 	}
 	file.clear();
