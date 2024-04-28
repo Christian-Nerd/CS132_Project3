@@ -227,7 +227,7 @@ inline void BST<DataType>::insert(const DataType & item)
 
 //--- Definition of get()
 template <typename DataType>
-inline DataType& BST<DataType>::get(const DataType & item) 
+DataType& BST<DataType>::get(const DataType & item) 
 {
    BST<DataType>::BinNodePointer 
         locptr = myRoot,   // search pointer
@@ -251,6 +251,7 @@ inline DataType& BST<DataType>::get(const DataType & item)
    {
        return locptr->data;
    }
+   return new DataType;
 }
 
 //--- Definition of remove()

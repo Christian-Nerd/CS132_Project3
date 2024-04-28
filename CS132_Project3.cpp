@@ -47,29 +47,30 @@ int Word::GetCount()
 	return this->count;
 }
 
-bool Word::operator< (Word term) 
+bool operator< (Word term1, Word term2) 
 {
-	return this->MyWord < term.MyWord;
+	return term1.GetWord() < term2.GetWord();
 }
 
-bool Word::operator> (Word term)
+bool operator> (Word term1, Word term2)
 {
-	return this->MyWord > term.MyWord;
+	return term1.GetWord() > term2.GetWord();
 }
 
-bool Word::operator<= (Word term) 
+bool operator<= (Word term1, Word term2) 
 {
-	return this->MyWord <= term.MyWord;
+	return term1.GetWord() <= term2.GetWord();
 }
 
-bool Word::operator>= (Word term) 
+bool operator>= (Word term1, Word term2) 
 {
-	return this->MyWord >= term.MyWord;
+	return term1.GetWord() >= term2.GetWord();
 }
 
-bool Word::operator== (Word term) 
+
+bool operator== (Word term1, Word term2) 
 {
-	return this->MyWord == term.MyWord;
+	return term1.GetWord() == term2.GetWord();
 }
 
 ifstream& GetFile() 

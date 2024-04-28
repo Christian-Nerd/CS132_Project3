@@ -43,15 +43,15 @@ public:
 	bool friend operator== (T, Word);
 	template<typename T>
 	bool friend operator== (Word, T);
-	// Operators
-	bool operator< (Word);
-	bool operator> (Word);
-	bool operator<= (Word);
-	bool operator>= (Word);
-	bool operator== (Word);
 	friend std::ostream& operator<<(std::ostream& out, Word& word);
 	friend std::istream& operator>>(std::istream& in, Word& word);
 };
+// Operators
+bool operator< (Word, Word);
+bool operator> (Word, Word);
+bool operator<= (Word, Word);
+bool operator>= (Word, Word);
+bool operator== (Word, Word);
 // Function Headers
 std::ifstream& MakeFile();
 bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  
@@ -87,6 +87,7 @@ bool DoesUserWantToContinue();
 	{
 		return var > word.MyWord;
 	}
+
 	template<typename T>
 	bool operator> (Word word, T var)
 	{
