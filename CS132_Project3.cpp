@@ -91,7 +91,11 @@ ostream& operator<<(std::ostream& out, Word& word)
 
 istream& operator>>(std::istream& in, Word& word) 
 {
-	in >> word.MyWord >> word.FirstOccurance >> word.count;
+	
+	while (isspace(in.get()) 
+	{
+		
+	}
 	return in;
 }
 
@@ -99,7 +103,15 @@ istream& operator>>(std::istream& in, Word& word)
 
 void IntializeList(BST<Word> list[], ifstream file)
 {
-
+	int Count = 0, FirstWordLine = 0;
+	while (file)
+	{
+		Word NextWord;
+		file >> NextWord;
+		NextWord.
+	}
+	file.clear();
+	file.seekg(ios::beg);
 }
 
 void DisplayList(BST<Word> list[], ostream& out) 
