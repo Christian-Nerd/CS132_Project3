@@ -77,14 +77,12 @@ bool operator== (Word term1, Word term2)
 	return term1.GetWord() == term2.GetWord();
 }
 
-ifstream& GetFile() 
+void GetFile(ifstream& in) 
 {
-	ifstream in;
 	cout << "Input File path: ";
 	string path;
 	cin >> path;
-	in.open(path, ios::out);
-	return in;
+	in.open(path, ios::in);
 }	
 
 
@@ -117,8 +115,7 @@ istream& operator>>(std::istream& in, Word& word)
 			word.SetWord(NewWord);
 			if (!in)
 			{
-				in.clear();
-				in.seekg(ios::beg);
+				return in;
 			}
 			else if (in.peek() == '\n')
 			{

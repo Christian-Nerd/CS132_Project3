@@ -54,7 +54,7 @@ bool operator<= (Word, Word);
 bool operator>= (Word, Word);
 bool operator== (Word, Word);
 // Function Headers
-std::ifstream& MakeFile();
+void GetFile(std::ifstream&);
 bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  
 void IntializeList(BST<Word>[], std::ifstream& in);
 void DisplayList(BST<Word>[], std::ostream& out);
