@@ -116,6 +116,10 @@ istream& operator>>(std::istream& in, Word& word)
 				in.seekg(ios::beg);
 			}
 			else if (in.peek() == '\n')
+			{
+				word.IncrementCount(); // Increments count to indicate current line
+			}
+			word.SetFirstFind(word.GetFirstFind() + word.GetCount()); // Uses count to assign current line to
 			break;
 		}
 		CurrentStreamCharacter = in.get();
@@ -127,17 +131,26 @@ istream& operator>>(std::istream& in, Word& word)
 
 void IntializeList(BST<Word> list[], ifstream file)
 {
-	int Count = 0, CurrentLine = 0;
+	int Count = 0, CurrentLine = 0, AlphabetIndex = 0, LineNumber = 1;
 	while (file)
 	{
 		Word NextWord;
 		NextWord.SetFirstFind(CurrentLine);
 		file >> NextWord;
-		if(!list->search(NextWord))
-			list->insert(NextWord);
+		for (int i = 0; i < NextWord.GetWord().size(); i++)
+		{
+			char CurrentCharacter = NextWord.GetWord().at(i);
+			// Find AlphabetIndex
+			if (isalpha(CurrentCharacter))
+			{
+				AlphabetIndex = tolower(CurrentCharacter) - 97;
+			}
+		}
+		if(!list[AlphabetIndex].search(NextWord))
+			list[AlphabetIndex].insert(NextWord);
 		else
 		{
-			list->get(NextWord).IncrementCount();
+			list[AlphabetIndex].get(NextWord).IncrementCount();
 		}
 	}
 	file.clear();

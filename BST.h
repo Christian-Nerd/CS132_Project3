@@ -251,7 +251,8 @@ DataType& BST<DataType>::get(const DataType & item)
    {
        return locptr->data;
    }
-   return new DataType;
+   DataType garbage;
+   return garbage;
 }
 
 //--- Definition of remove()
