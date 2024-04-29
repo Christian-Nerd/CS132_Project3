@@ -46,6 +46,8 @@ public:
 	bool friend operator== (Word, T);
 	friend std::ostream& operator<<(std::ostream& out, Word& word);
 	friend std::istream& operator>>(std::istream& in, Word& word);
+	Word operator= (Word);
+	string operator= (std::string);
 };
 // Operators
 bool operator< (Word, Word);

@@ -77,6 +77,18 @@ bool operator== (Word term1, Word term2)
 	return term1.GetWord() == term2.GetWord();
 }
 
+Word Word::operator= (Word term2) 
+{
+	this->SetWord(term2.GetWord());
+	return term2;
+}
+
+string Word::operator= (string term2) 
+{
+	this->SetWord(term2);
+	return term2;
+}
+
 void GetFile(ifstream& in) 
 {
 	cout << "Input File path: ";
@@ -183,9 +195,11 @@ void ChooseOperation(BST<Word> list[], ostream& in)
 	{
 		string word = " ";
 		cin >> word;
+		Word CurrentWord;
+		CurrentWord.SetWord(word);
 		for (int i = 0; i < 26; i++) 
 		{
-			if(list[i].search(word);
+			if(list[i].search(CurrentWord);
 		}
 	}
 
