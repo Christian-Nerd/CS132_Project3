@@ -10,9 +10,9 @@ if (POLICY CMP0141)
 endif()
 
 project ("CS132_Project3")
-
 # Add source to this project's executable.
 add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp" "Quicksort.h" "Quicksort.cpp")
+set_target_properties(CS132_Project3 PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 add_library(QuickSort.lib UNKNOWN IMPORTED)
 target_link_libraries(QuickSort.lib)
 

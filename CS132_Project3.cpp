@@ -102,6 +102,7 @@ void GetFile(ifstream& in)
 		if (!in)
 		{
 			cerr << endl << "Invalid file path please renter" << endl;
+			in.clear();
 		}
 	} while (!in);
 }	
