@@ -143,7 +143,7 @@ istream& operator>>(std::istream& in, Word& word)
 
 
 
-void IntializeList(BST<Word> list[], ifstream file)
+void InitializeList(BST<Word> list[], ifstream& file)
 {
 	int Count = 0, CurrentLine = 0, AlphabetIndex = 0, LineNumber = 1;
 	while (file)

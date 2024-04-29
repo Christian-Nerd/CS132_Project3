@@ -9,6 +9,7 @@ int main()
 	while (true)
 	{
 		GetFile(Text);
+		InitializeList(List, Text);
 		ChooseOperation(List, Text);
 	}
 	return 0;
