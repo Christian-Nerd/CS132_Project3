@@ -167,7 +167,29 @@ void DisplayList(BST<Word> list[], ostream& out)
 
 void ChooseOperation(BST<Word> list[], ostream& in) 
 {
-	cout << "Do you want to display all the words in the list or ";
+	cout << "Do you want to display all the words in the list or retrive a specific one?";
+	string choice = "";
+	cin >> choice;
+	transform(choice.begin(), choice.end(), choice.begin(), tolower); // Convert string to lowercase 
+	if (choice == "display" || choice == "display words" || choice == "show" || choice == "show words") 
+	{
+		ofstream out;
+		out.open("List", ios::out);
+		list->inorder(cout);
+		list->inorder(out);
+	}
+
+	else if (choice == "get" || choice == "retrive word" || choice == "get words" || choice == "get word" || choice == "retrive words")
+	{
+		string word = " ";
+		cin >> word;
+		for (int i = 0; i < 26; i++) 
+		{
+			if(list[i].search(word);
+		}
+	}
+
+
 	DisplayList(list, cout);
 }
 
