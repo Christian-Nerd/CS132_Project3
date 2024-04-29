@@ -95,7 +95,7 @@ void GetFile(ifstream& in)
 	{
 		cout << "Input File path: ";
 		string path;
-		cin >> path;
+		getline(cin, path);
 		cout << endl; // For better formatting
 		in.open(path, ios::in);
 		cout << in.fail();
