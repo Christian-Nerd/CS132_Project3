@@ -193,18 +193,29 @@ void ChooseOperation(BST<Word> list[], ostream& in)
 
 	else if (choice == "get" || choice == "retrive word" || choice == "get words" || choice == "get word" || choice == "retrive words")
 	{
-		string word = " ";
-		cin >> word;
-		Word CurrentWord;
-		CurrentWord.SetWord(word);
-		for (int i = 0; i < 26; i++) 
+		bool ValidWord = true;
+		while(ValidWord)
 		{
-			if(list[i].search(CurrentWord);
+			cout << "Input word " << endl;
+			string word = " ";
+			cin >> word;
+			Word CurrentWord;
+			CurrentWord.SetWord(word);
+			for (int i = 0; i < 26; i++)
+			{
+				if (list[i].search(CurrentWord))
+					break;
+				else
+				{
+					ValidWord = false;
+					break;
+				}
+			}
 		}
+	DisplayList(list, cout);
 	}
 
 
-	DisplayList(list, cout);
 }
 
 bool DoesUserWantToContinue() { return false; }
