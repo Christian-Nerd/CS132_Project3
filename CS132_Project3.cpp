@@ -159,8 +159,29 @@ void IntializeList(BST<Word> list[], ifstream file)
 			if (isalpha(CurrentCharacter))
 			{
 				AlphabetIndex = tolower(CurrentCharacter) - 97;
+				//Get rid of non alphabet characters at beginning of word
+				NextWord.SetWord(NextWord.GetWord().substr(CurrentCharacter, NextWord.GetWord().size()));
 			}
 		}
+		//Find non alphabet characters at end of word
+		for (int i = NextWord.GetWord().size() - 11; i > -1; i--)
+		{
+			char CurrentCharacter = NextWord.GetWord().at(i), PreviousCharacter  = i - 1 >= 0? NextWord.GetWord().at(i - 1) : ' ';
+			if (!isalpha(CurrentCharacter))
+			{
+				if (PreviousCharacter != ' ' && isalpha(PreviousCharacter)) 
+				{
+					NextWord.SetWord(NextWord.GetWord().substr(0, i-1));
+					break;
+				}
+				else if (i == 0)
+				{
+					
+				}
+			}
+
+		}
+		// If not found insert the word if found increment the word's count
 		if(!list[AlphabetIndex].search(NextWord))
 			list[AlphabetIndex].insert(NextWord);
 		else
@@ -177,7 +198,7 @@ void DisplayList(BST<Word> list[], ostream& out)
 	list->inorder(out);
 }
 
-void ChooseOperation(BST<Word> list[], ostream& in) 
+void ChooseOperation(BST<Word> list[], istream& in) 
 {
 	cout << "Do you want to display all the words in the list or retrive a specific one?";
 	string choice = "";

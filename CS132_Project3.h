@@ -60,7 +60,7 @@ void GetFile(std::ifstream&);
 bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  
 void IntializeList(BST<Word>[], std::ifstream& in);
 void DisplayList(BST<Word>[], std::ostream& out);
-void ChooseOperation(BST<Word>[], std::ostream& in);
+void ChooseOperation(BST<Word>[], std::istream& in);
 bool DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>
