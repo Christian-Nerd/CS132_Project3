@@ -218,4 +218,12 @@ void ChooseOperation(BST<Word> list[], ostream& in)
 
 }
 
-bool DoesUserWantToContinue() { return false; }
+bool DoesUserWantToContinue() 
+{
+	string choice = "";
+	cout << "Do you want to exit.";
+	cin >> choice;
+	if(choice == "yes" || "y")
+		return false; 
+	return true;
+}
