@@ -94,6 +94,7 @@ void GetFile(ifstream& in)
 	cout << "Input File path: ";
 	string path;
 	cin >> path;
+	cout << endl; // For better formatting
 	in.open(path, ios::in);
 }	
 
@@ -198,13 +199,13 @@ void DisplayList(BST<Word> list[], ostream& out)
 	list->inorder(out);
 }
 
-void ChooseOperation(BST<Word> list[], istream& in) 
+void ChooseOperation(BST<Word> list[], istream& in)
 {
-	cout << "Do you want to display all the words in the list or retrive a specific one?";
+	cout << "Do you want to display all the words in the list or retrive a specific one? ";
 	string choice = "";
 	cin >> choice;
 	transform(choice.begin(), choice.end(), choice.begin(), tolower); // Convert string to lowercase 
-	if (choice == "display" || choice == "display words" || choice == "show" || choice == "show words") 
+	if (choice == "display" || choice == "display words" || choice == "show" || choice == "show words" || choice == "all")
 	{
 		ofstream out;
 		out.open("List", ios::out);
