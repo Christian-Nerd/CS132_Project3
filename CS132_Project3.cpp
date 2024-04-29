@@ -89,13 +89,21 @@ string Word::operator= (string term2)
 	return term2;
 }
 
-void GetFile(ifstream& in) 
+void GetFile(ifstream& in)
 {
-	cout << "Input File path: ";
-	string path;
-	cin >> path;
-	cout << endl; // For better formatting
-	in.open(path, ios::in);
+	do
+	{
+		cout << "Input File path: ";
+		string path;
+		cin >> path;
+		cout << endl; // For better formatting
+		in.open(path, ios::in);
+		cout << in.fail();
+		if (!in)
+		{
+			cerr << endl << "Invalid file path please renter" << endl;
+		}
+	} while (!in);
 }	
 
 
