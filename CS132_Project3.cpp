@@ -231,6 +231,7 @@ void ChooseOperation(BST<Word> list[], istream& in)
 		out.open("List", ios::out);
 		list->inorder(cout);
 		list->inorder(out);
+		out.close();
 	}
 
 	else if (choice == "get" || choice == "retrive word" || choice == "get words" || choice == "get word" || choice == "retrive words")
@@ -266,6 +267,6 @@ bool DoesUserWantToContinue()
 	cout << "Do you want to exit.";
 	cin >> choice;
 	if(choice == "yes" || "y")
-		return false; 
-	return true;
+		return true; 
+	return false;
 }
