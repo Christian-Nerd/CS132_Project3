@@ -150,10 +150,6 @@ istream& operator>>(std::istream& in, Word& word)
 			{
 				return in;
 			}
-			else if (in.peek() == '\n')
-			{
-				word.IncrementCount(); // Increments count to indicate current line
-			}
 			break;
 		}
 		CurrentStreamCharacter = in.get();
@@ -248,7 +244,7 @@ void ChooseOperation(BST<Word> list[], istream& in)
 		out.close();
 	}
 
-	else if (choice == "get" || choice == "retrive word" || choice == "get words" || choice == "get word" || choice == "retrive words")
+	else if (choice == "get" || choice == "retrieve word" || choice == "get words" || choice == "get word" || choice == "retrieve words")
 	{
 		bool ValidWord = true;
 		while(ValidWord)

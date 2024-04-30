@@ -6,10 +6,10 @@ int main()
 {
 	ifstream Text;
 	BST<Word> List[26];
+	GetFile(Text);
+	InitializeList(List, Text);
 	while (true)
 	{
-		GetFile(Text);
-		InitializeList(List, Text);
 		ChooseOperation(List, Text);
 	}
 	Text.close();
