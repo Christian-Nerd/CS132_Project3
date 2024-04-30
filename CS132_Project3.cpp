@@ -126,6 +126,17 @@ istream& operator>>(std::istream& in, Word& word)
 	string NewWord = "";
 	while (true) 
 	{
+		if (CurrentStreamCharacter == (char)0xEF || CurrentStreamCharacter == (char)0xBB || CurrentStreamCharacter == (char)0xBF)
+		{
+			CurrentStreamCharacter = in.get();
+			if (!in)
+			{
+				in.clear();
+				break;
+			}
+			continue;
+		}
+
 		if (CurrentStreamCharacter == '\n')
 		{
 			word.IncrementCount(); // Increments count to indicate current line
@@ -170,7 +181,7 @@ void InitializeList(BST<Word> list[], ifstream& file)
 			{
 				AlphabetIndex = tolower(CurrentCharacter) - 97;
 				//Get rid of non alphabet characters at beginning of word
-				NextWord.SetWord(NextWord.GetWord().substr(CurrentCharacter, NextWord.GetWord().size()));
+				NextWord.SetWord(NextWord.GetWord().substr(i, NextWord.GetWord().size()-1 ));
 			}
 		}
 		//Find non alphabet characters at end of word
