@@ -163,7 +163,7 @@ void TruncateNonAlphaChars(Word& term)
 		//Find non alphabet characters at beginning of word
 		for (int i = 0; i < Phrase.size(); i++)
 		{
-			char CurrentCharacter = Phrase.at(i), PreviousCharacter  = i - 1 >= 0? Phrase.at(i - 1) : ' ';
+			char CurrentCharacter = Phrase.at(i);
 			if (isalpha(CurrentCharacter))
 			{
 				// Truncate alphabet characters at the beginning of the word
@@ -178,14 +178,11 @@ void TruncateNonAlphaChars(Word& term)
 		//Find non alphabet characters at end of word
 		for (int i = Phrase.size() - 1; i > -1 && Phrase != ""; i--)
 		{
-			char CurrentCharacter = Phrase.at(i), PreviousCharacter  = i - 1 >= 0? Phrase.at(i - 1) : ' ';
-			if (!isalpha(CurrentCharacter))
+			char CurrentCharacter = Phrase.at(i);
+			if (isalpha(CurrentCharacter))
 			{
-				if (PreviousCharacter != ' ' && isalpha(PreviousCharacter)) 
-				{
-					Phrase = Phrase.substr(0, i-1);
-					break;
-				}
+				Phrase = Phrase.substr(0, i+1);
+				break;
 			}
 		}
 		term.SetWord(Phrase);
