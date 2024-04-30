@@ -126,7 +126,7 @@ istream& operator>>(std::istream& in, Word& word)
 	string NewWord = "";
 	while (true) 
 	{
-		if (CurrentStreamCharacter == (char)0xEF || CurrentStreamCharacter == (char)0xBB || CurrentStreamCharacter == (char)0xBF)
+		if (!(CurrentStreamCharacter >= -1 && CurrentStreamCharacter <= 255))
 		{
 			CurrentStreamCharacter = in.get();
 			if (!in)
