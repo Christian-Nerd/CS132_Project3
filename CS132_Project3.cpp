@@ -216,7 +216,11 @@ void InitializeList(BST<Word> list[], ifstream& file)
 
 void DisplayList(BST<Word> list[], ostream& out) 
 {
-	list->inorder(out);
+	for (int i = 0; i < 26; i++)
+	{
+		list[i].inorder(out);
+		out << endl;
+	}
 }
 
 void ChooseOperation(BST<Word> list[], istream& in)
@@ -229,8 +233,8 @@ void ChooseOperation(BST<Word> list[], istream& in)
 	{
 		ofstream out;
 		out.open("List", ios::out);
-		list->inorder(cout);
-		list->inorder(out);
+		DisplayList(list, cout);
+		DisplayList(list, out);
 		out.close();
 	}
 
