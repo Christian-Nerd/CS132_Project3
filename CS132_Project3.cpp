@@ -115,7 +115,7 @@ bool InWord(char Current, char Next)
 
 ostream& operator<<(std::ostream& out, Word& word) 
 {
-	out << word.MyWord << "    " << word.FirstOccurance << "    " << word.count;
+	out << word.MyWord << "    " << word.FirstOccurance << "    " << word.count << endl;
 	return out;
 }
 

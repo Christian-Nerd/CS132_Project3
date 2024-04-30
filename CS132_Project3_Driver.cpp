@@ -12,5 +12,6 @@ int main()
 		InitializeList(List, Text);
 		ChooseOperation(List, Text);
 	}
+	Text.close();
 	return 0;
 }
