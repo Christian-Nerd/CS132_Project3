@@ -168,19 +168,11 @@ void TruncateNonAlphaChars(Word& term)
 		for (int i = 0; i < Phrase.size(); i++)
 		{
 			char CurrentCharacter = Phrase.at(i), PreviousCharacter  = i - 1 >= 0? Phrase.at(i - 1) : ' ';
-			if (!isalpha(CurrentCharacter))
+			if (isalpha(CurrentCharacter))
 			{
 				// Truncate alphabet characters at the beginning of the word
-				if (i+1 < Phrase.size()) 
-				{
-					term.SetWord(Phrase.substr(i+1, Phrase.size()-1 ));
-					break;
-				}
-				else
-				{
-					term.SetWord(Phrase.substr(i, Phrase.size() - 1));
-					break;
-				}
+				Phrase = Phrase.substr(i, Phrase.size() - 1);
+			break;
 			}
 		}
 
@@ -192,7 +184,7 @@ void TruncateNonAlphaChars(Word& term)
 			{
 				if (PreviousCharacter != ' ' && isalpha(PreviousCharacter)) 
 				{
-					term.SetWord(Phrase.substr(0, i-1));
+					Phrase = Phrase.substr(0, i-1);
 					break;
 				}
 			}
