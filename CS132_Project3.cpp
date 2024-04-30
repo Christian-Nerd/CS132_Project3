@@ -98,7 +98,6 @@ void GetFile(ifstream& in)
 		getline(cin, path);
 		cout << endl; // For better formatting
 		in.open(path, ios::in);
-		cout << in.fail();
 		if (!in)
 		{
 			cerr << endl << "Invalid file path please renter" << endl;
@@ -228,7 +227,7 @@ void DisplayList(BST<Word> list[], ostream& out)
 
 void ChooseOperation(BST<Word> list[], istream& in)
 {
-	cout << "Do you want to display all the words in the list or retrive a specific one? ";
+	cout << "Do you want to display all the words in the list or retrieve a specific one? ";
 	string choice = "";
 	cin >> choice;
 	transform(choice.begin(), choice.end(), choice.begin(), tolower); // Convert string to lowercase 
@@ -244,7 +243,7 @@ void ChooseOperation(BST<Word> list[], istream& in)
 	else if (choice == "get" || choice == "retrieve word" || choice == "get words" || choice == "get word" || choice == "retrieve words")
 	{
 		bool ValidWord = true;
-		while(ValidWord)
+		do
 		{
 			cout << "Input word " << endl;
 			string word = " ";
@@ -254,15 +253,18 @@ void ChooseOperation(BST<Word> list[], istream& in)
 			for (int i = 0; i < 26; i++)
 			{
 				if (list[i].search(CurrentWord))
+				{
+					cout << list[i].get(CurrentWord);
 					break;
+				}
 				else
 				{
 					ValidWord = false;
+					cerr << "Invalid Word please renter" << endl;
 					break;
 				}
 			}
-		}
-	DisplayList(list, cout);
+		}while (!ValidWord);
 	}
 	in.clear();
 }
