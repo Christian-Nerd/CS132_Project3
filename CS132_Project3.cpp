@@ -172,12 +172,15 @@ void TruncateNonAlphaChars(Word& term)
 			{
 				// Truncate alphabet characters at the beginning of the word
 				Phrase = Phrase.substr(i, Phrase.size() - 1);
-			break;
+				break;
 			}
+			// If there's no alphabetic characters in the list make phrase blank
+			else if (i == Phrase.size() - 1)
+				Phrase = "";
 		}
 
 		//Find non alphabet characters at end of word
-		for (int i = Phrase.size() - 1; i > -1; i--)
+		for (int i = Phrase.size() - 1; i > -1 && Phrase != ""; i--)
 		{
 			char CurrentCharacter = Phrase.at(i), PreviousCharacter  = i - 1 >= 0? Phrase.at(i - 1) : ' ';
 			if (!isalpha(CurrentCharacter))
