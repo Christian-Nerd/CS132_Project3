@@ -161,50 +161,65 @@ istream& operator>>(std::istream& in, Word& word)
 	return in;
 }
 
-
-
-void InitializeList(BST<Word> list[], ifstream& file)
+void TruncateNonAlphaChars(Word& term) 
 {
-	int Count = 0, CurrentLine = 0, AlphabetIndex = 0, LineNumber = 1;
-	while (file)
-	{
-		Word NextWord;
-		NextWord.SetFirstFind(CurrentLine);
-		file >> NextWord;
-		// Use count to find current line
-		LineNumber += NextWord.GetCount();
-		for (int i = 0; i < NextWord.GetWord().size(); i++)
+		string Phrase = term.GetWord();
+		//Find non alphabet characters at beginning of word
+		for (int i = 0; i < Phrase.size(); i++)
 		{
-			char CurrentCharacter = NextWord.GetWord().at(i);
-			// Find AlphabetIndex
-			if (isalpha(CurrentCharacter))
+			char CurrentCharacter = Phrase.at(i), PreviousCharacter  = i - 1 >= 0? Phrase.at(i - 1) : ' ';
+			if (!isalpha(CurrentCharacter))
 			{
-				AlphabetIndex = tolower(CurrentCharacter) - 97;
-				//Get rid of non alphabet characters at beginning of word
-				NextWord.SetWord(NextWord.GetWord().substr(i, NextWord.GetWord().size()-1 ));
+				// Truncate alphabet characters at the beginning of the word
+				if (i+1 < Phrase.size()) 
+				{
+					term.SetWord(Phrase.substr(i+1, Phrase.size()-1 ));
+					break;
+				}
+				else
+				{
+					term.SetWord(Phrase.substr(i, Phrase.size() - 1));
+					break;
+				}
 			}
 		}
+
 		//Find non alphabet characters at end of word
-		for (int i = NextWord.GetWord().size() - 11; i > -1; i--)
+		for (int i = Phrase.size() - 1; i > -1; i--)
 		{
-			char CurrentCharacter = NextWord.GetWord().at(i), PreviousCharacter  = i - 1 >= 0? NextWord.GetWord().at(i - 1) : ' ';
+			char CurrentCharacter = Phrase.at(i), PreviousCharacter  = i - 1 >= 0? Phrase.at(i - 1) : ' ';
 			if (!isalpha(CurrentCharacter))
 			{
 				if (PreviousCharacter != ' ' && isalpha(PreviousCharacter)) 
 				{
-					NextWord.SetWord(NextWord.GetWord().substr(0, i-1));
+					term.SetWord(Phrase.substr(0, i-1));
 					break;
 				}
-				else if (i == 0)
-				{
-					
-				}
 			}
-
 		}
+		term.SetWord(Phrase);
+}
+
+void InitializeList(BST<Word> list[], ifstream& file)
+{
+	int Count = 0, AlphabetIndex = 0, LineNumber = 1;
+	while (file)
+	{
+		Word NextWord;
+		NextWord.SetFirstFind(LineNumber);
+		file >> NextWord;
+		// Use count to find current line
+		LineNumber += NextWord.GetCount();
+		TruncateNonAlphaChars(NextWord);
+		AlphabetIndex =  NextWord.GetWord() != ""? tolower(NextWord.GetWord().at(0)) - 97 : -1;
+		if (AlphabetIndex == -1) // If word does not have an alphabetic first character get the next one
+			continue;
 		// If not found insert the word if found increment the word's count
 		if(!list[AlphabetIndex].search(NextWord))
+		{
 			list[AlphabetIndex].insert(NextWord);
+			list[AlphabetIndex].get(NextWord).IncrementCount();
+		}
 		else
 		{
 			list[AlphabetIndex].get(NextWord).IncrementCount();
@@ -261,8 +276,7 @@ void ChooseOperation(BST<Word> list[], istream& in)
 		}
 	DisplayList(list, cout);
 	}
-
-
+	in.clear();
 }
 
 bool DoesUserWantToContinue() 

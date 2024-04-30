@@ -58,6 +58,7 @@ bool operator== (Word, Word);
 // Function Headers
 void GetFile(std::ifstream&);
 bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  
+void TruncateNonAlphaChars(Word&);
 void InitializeList(BST<Word>[], std::ifstream& in);
 void DisplayList(BST<Word>[], std::ostream& out);
 void ChooseOperation(BST<Word>[], std::istream& in);
