@@ -104,7 +104,7 @@ wstring Word::operator= (wstring term2)
 
 bool IsAscii(wchar_t Character)
 {
-	return Character > -1 && Character <= 255;
+	return Character > -1 && Character <= 127;
 }
 
 void GetFile(wifstream& in)
@@ -139,7 +139,8 @@ wostream& operator<<(std::wostream& out, Word& word)
 
 wistream& operator>>(std::wistream& in, Word& word) 
 {
-	char CurrentStreamCharacter = in.get();
+	wchar_t CurrentStreamCharacter; 
+	in.get(CurrentStreamCharacter);
 	wstring NewWord = L"";
 	while (true) 
 	{
