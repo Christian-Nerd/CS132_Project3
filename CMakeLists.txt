@@ -14,6 +14,18 @@ project ("CS132_Project3")
 add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp" "Quicksort.h" "Quicksort.cpp")
 set_property(TARGET CS132_Project3 PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
 add_library(QuickSort.lib UNKNOWN IMPORTED)
+# CMake option example (enable header-only version)
+# set(UNI_ALGO_HEADER_ONLY ON CACHE INTERNAL "")
+# Note that header-only makes the library constexpr
+
+add_subdirectory(uni-algo) # The directory where you extracted this repository
+
+# Config define example (disable normalization)
+# target_compile_definitions(uni-algo PUBLIC UNI_ALGO_DISABLE_NORM)
+# Note that you can ignore config defines if header-only is enabled
+# because Unicode data that is not used won't be compiled anyway.
+
+target_link_libraries(${PROJECT_NAME} PRIVATE uni-algo::uni-algo)
 target_link_libraries(QuickSort.lib)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
