@@ -2,8 +2,6 @@
 //
 
 #include "CS132_Project3.h"
-#include "Quicksort.h"
-
 using namespace std;
 
 void Word::toUpper() 
@@ -16,7 +14,7 @@ void Word::toLower()
 	transform(this->MyWord.begin(), this->MyWord.end(), this->MyWord.begin(), std::tolower);
 }
 
-void Word::SetWord(string Word) 
+void Word::SetWord(wstring Word) 
 {
 	this->MyWord = Word;
 }
@@ -36,7 +34,7 @@ void Word::IncrementCount()
 	this->count += 1;
 }
 
-string Word::GetWord() 
+wstring Word::GetWord() 
 {
 	return this->MyWord;
 
@@ -83,13 +81,13 @@ Word Word::operator= (Word term2)
 	return term2;
 }
 
-string Word::operator= (string term2) 
+wstring Word::operator= (wstring term2) 
 {
 	this->SetWord(term2);
 	return term2;
 }
 
-void GetFile(ifstream& in)
+void GetFile(wifstream& in)
 {
 	do
 	{
@@ -112,17 +110,17 @@ bool InWord(char Current, char Next)
 	return (isspace(Current) && !isspace(Next)) || (!isspace(Current) && !isspace(Next));
 }
 
-ostream& operator<<(std::ostream& out, Word& word) 
+wostream& operator<<(std::wostream& out, Word& word) 
 {
-	out << word.MyWord << "    " << word.FirstOccurance << "    " << word.count << endl;
+	out << word.MyWord << "  First Found at Line " << word.FirstOccurance << " and was found " << word.count << " times " << endl;
 	return out;
 }
 
 
-istream& operator>>(std::istream& in, Word& word) 
+wistream& operator>>(std::wistream& in, Word& word) 
 {
 	char CurrentStreamCharacter = in.get();
-	string NewWord = "";
+	wstring NewWord = L"";
 	while (true) 
 	{
 		if (!(CurrentStreamCharacter >= -1 && CurrentStreamCharacter <= 255))
@@ -158,7 +156,7 @@ istream& operator>>(std::istream& in, Word& word)
 
 void TruncateNonAlphaChars(Word& term) 
 {
-		string Phrase = term.GetWord();
+		wstring Phrase = term.GetWord();
 		//Find non alphabet characters at beginning of word
 		for (int i = 0; i < Phrase.size(); i++)
 		{
@@ -171,11 +169,11 @@ void TruncateNonAlphaChars(Word& term)
 			}
 			// If there's no alphabetic characters in the list make phrase blank
 			else if (i == Phrase.size() - 1)
-				Phrase = "";
+				Phrase = L"";
 		}
 
 		//Find non alphabet characters at end of word
-		for (int i = Phrase.size() - 1; i > -1 && Phrase != ""; i--)
+		for (int i = Phrase.size() - 1; i > -1 && Phrase != L""; i--)
 		{
 			char CurrentCharacter = Phrase.at(i);
 			if (isalpha(CurrentCharacter))
@@ -187,7 +185,7 @@ void TruncateNonAlphaChars(Word& term)
 		term.SetWord(Phrase);
 }
 
-void InitializeList(BST<Word> list[], ifstream& file)
+void InitializeList(BST<Word> list[], wifstream& file)
 {
 	int Count = 0, AlphabetIndex = 0, LineNumber = 1;
 	while (file)
@@ -198,8 +196,8 @@ void InitializeList(BST<Word> list[], ifstream& file)
 		// Use count to find current line
 		LineNumber += NextWord.GetCount();
 		TruncateNonAlphaChars(NextWord);
-		string debugWord = NextWord.GetWord();
-		AlphabetIndex =  NextWord.GetWord() != ""? tolower(NextWord.GetWord().at(0)) - 97 : -1;
+		wstring debugWord = NextWord.GetWord();
+		AlphabetIndex =  NextWord.GetWord() != L""? towlower(NextWord.GetWord().at(0)) - 97 : -1;
 		if (AlphabetIndex == -1) // If word does not have an alphabetic first character get the next one
 			continue;
 		// If not found insert the word if found increment the word's count
@@ -217,7 +215,7 @@ void InitializeList(BST<Word> list[], ifstream& file)
 	file.seekg(ios::beg);
 }
 
-void DisplayList(BST<Word> list[], ostream& out) 
+void DisplayList(BST<Word> list[], wostream& out) 
 {
 	for (int i = 0; i < 26; i++)
 	{
@@ -226,7 +224,7 @@ void DisplayList(BST<Word> list[], ostream& out)
 	}
 }
 
-bool ChooseOperation(BST<Word> list[], istream& in)
+bool ChooseOperation(BST<Word> list[], wistream& in)
 {
 	cout << "Do you want to display all the words in the list or retrieve a specific one? ";
 	string choice = "";
@@ -235,9 +233,9 @@ bool ChooseOperation(BST<Word> list[], istream& in)
 	transform(choice.begin(), choice.end(), choice.begin(), tolower); // Convert string to lowercase 
 	if (choice == "display" || choice == "display words" || choice == "show" || choice == "show words" || choice == "all")
 	{
-		ofstream out;
+		wofstream out;
 		out.open("List", ios::out);
-		DisplayList(list, cout);
+		DisplayList(list, wcout);
 		DisplayList(list, out);
 		out.close();
 	}
@@ -248,15 +246,15 @@ bool ChooseOperation(BST<Word> list[], istream& in)
 		do
 		{
 			cout << "Input word " << endl;
-			string word = " ";
-			cin >> word;
+			wstring word = L"";
+			wcin >> word;
 			Word CurrentWord;
 			CurrentWord.SetWord(word);
 			for (int i = 0; i < 26; i++)
 			{
 				if (list[i].search(CurrentWord))
 				{
-					cout << list[i].get(CurrentWord);
+					wcout << list[i].get(CurrentWord);
 					break;
 				}
 				else

@@ -4,7 +4,7 @@ using namespace std;
 
 int main() 
 {
-	ifstream Text;
+	wifstream Text;
 	BST<Word> List[26];
 	GetFile(Text);
 	InitializeList(List, Text);

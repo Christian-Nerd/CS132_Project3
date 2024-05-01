@@ -84,6 +84,7 @@ class BST
  ------------------------------------------------------------------------*/
  
   void inorder(std::ostream & out) const;
+  void inorder(std::wostream & out) const;
   /*------------------------------------------------------------------------
     Inorder traversal of BST.
 
@@ -138,6 +139,8 @@ class BST
  ------------------------------------------------------------------------*/
  
   void inorderAux(std::ostream & out, 
+                  BinNodePointer subtreePtr) const;
+  void inorderAux(std::wostream & out, 
                   BinNodePointer subtreePtr) const;
   /*------------------------------------------------------------------------
     Inorder traversal auxiliary function.
@@ -309,6 +312,12 @@ inline void BST<DataType>::inorder(std::ostream & out) const
    inorderAux(out, myRoot); 
 }
 
+template <typename DataType>
+inline void BST<DataType>::inorder(std::wostream & out) const
+{ 
+   inorderAux(out, myRoot); 
+}
+
 //--- Definition of graph()
 template <typename DataType>
 inline void BST<DataType>::graph(std::ostream & out) const
@@ -345,6 +354,21 @@ void BST<DataType>::search2(const DataType & item, bool & found,
 //--- Definition of inorderAux()
 template <typename DataType>
 void BST<DataType>::inorderAux(std::ostream & out, 
+                               BinNodePointer subtreeRoot) const
+{
+   if (subtreeRoot != 0)
+   {
+      inorderAux(out, subtreeRoot->left);    // L operation
+      out << subtreeRoot->data << "  ";      // V operation
+      inorderAux(out, subtreeRoot->right);   // R operation
+   }
+}
+
+
+
+//--- Overload of inorderAux()
+template <typename DataType>
+void BST<DataType>::inorderAux(std::wostream & out, 
                                BinNodePointer subtreeRoot) const
 {
    if (subtreeRoot != 0)

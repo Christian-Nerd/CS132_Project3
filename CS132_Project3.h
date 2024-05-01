@@ -4,9 +4,11 @@
 #pragma once
 
 #include <iostream>
+#include <istream>
 #include <algorithm>
 #include <string>
 #include <cctype>
+#include <cwctype>
 #include <sstream>
 #include <fstream>
 #include <vector>
@@ -19,16 +21,16 @@ struct Word
 	private:
 		int FirstOccurance;
 		int count = 0;
-		std::string MyWord;
+		std::wstring MyWord;
 	// Functions
 public:
 	void toUpper();
 	void toLower();
-	void SetWord(std::string);
+	void SetWord(std::wstring);
 	void SetFirstFind(int);
 	void SetCount(int);
 	void IncrementCount();
-	std::string GetWord();
+	std::wstring GetWord();
 	int GetFirstFind();
 	int GetCount();
 	// Template Operators
@@ -44,10 +46,10 @@ public:
 	bool friend operator== (T, Word);
 	template<typename T>
 	bool friend operator== (Word, T);
-	friend std::ostream& operator<<(std::ostream& out, Word& word);
-	friend std::istream& operator>>(std::istream& in, Word& word);
+	friend std::wostream& operator<<(std::wostream& out, Word& word);
+	friend std::wistream& operator>>(std::wistream& in, Word& word);
 	Word operator= (Word);
-	std::string operator= (std::string);
+	std::wstring operator= (std::wstring);
 };
 // Operators
 bool operator< (Word, Word);
@@ -56,12 +58,12 @@ bool operator<= (Word, Word);
 bool operator>= (Word, Word);
 bool operator== (Word, Word);
 // Function Headers
-void GetFile(std::ifstream&);
+void GetFile(std::wifstream&);
 bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  
 void TruncateNonAlphaChars(Word&);
-void InitializeList(BST<Word>[], std::ifstream& in);
-void DisplayList(BST<Word>[], std::ostream& out);
-bool ChooseOperation(BST<Word>[], std::istream& in);
+void InitializeList(BST<Word>[], std::wifstream& in);
+void DisplayList(BST<Word>[], std::wostream& out);
+bool ChooseOperation(BST<Word>[], std::wistream& in);
 bool DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>
