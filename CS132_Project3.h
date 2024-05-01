@@ -58,7 +58,6 @@ bool operator<= (Word, Word);
 bool operator>= (Word, Word);
 bool operator== (Word, Word);
 // Function Headers
-template <class Char> 
 bool IsAscii(wchar_t);
 void GetFile(std::wifstream&);
 bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  

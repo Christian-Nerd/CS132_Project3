@@ -52,27 +52,42 @@ int Word::GetCount()
 
 bool operator< (Word term1, Word term2) 
 {
-	return term1.GetWord() < term2.GetWord();
+	wstring word1 = term1.GetWord(), word2 = term2.GetWord();
+	transform(word1.begin(), word1.end(), word1.begin(), towlower);
+	transform(word2.begin(), word2.end(), word2.begin(), towlower);
+	return word1 < word2;
 }
 
 bool operator> (Word term1, Word term2)
 {
-	return term1.GetWord() > term2.GetWord();
+	wstring word1 = term1.GetWord(), word2 = term2.GetWord();
+	transform(word1.begin(), word1.end(), word1.begin(), towlower);
+	transform(word2.begin(), word2.end(), word2.begin(), towlower);
+	return word1 > word2;
 }
 
 bool operator<= (Word term1, Word term2) 
 {
-	return term1.GetWord() <= term2.GetWord();
+	wstring word1 = term1.GetWord(), word2 = term2.GetWord();
+	transform(word1.begin(), word1.end(), word1.begin(), towlower);
+	transform(word2.begin(), word2.end(), word2.begin(), towlower);
+	return word1 <= word2;
 }
 
 bool operator>= (Word term1, Word term2) 
 {
-	return term1.GetWord() >= term2.GetWord();
+	wstring word1 = term1.GetWord(), word2 = term2.GetWord();
+	transform(word1.begin(), word1.end(), word1.begin(), towlower);
+	transform(word2.begin(), word2.end(), word2.begin(), towlower);
+	return word1 >= word2;
 }
 
 bool operator== (Word term1, Word term2) 
 {
-	return term1.GetWord() == term2.GetWord();
+	wstring word1 = term1.GetWord(), word2 = term2.GetWord();
+	transform(word1.begin(), word1.end(), word1.begin(), towlower);
+	transform(word2.begin(), word2.end(), word2.begin(), towlower);
+	return word1 == word2;
 }
 
 Word Word::operator= (Word term2) 
@@ -214,7 +229,10 @@ void DisplayList(BST<Word> list[], wostream& out)
 {
 	for (int i = 0; i < 26; i++)
 	{
+		cout << !out;
 		list[i].inorder(out);
+		cout << !out;
+		out.clear();
 		out << endl;
 	}
 }
