@@ -109,10 +109,13 @@ bool IsAscii(wchar_t Character)
 
 void GetFile(wifstream& in)
 {
+	wchar_t winbuf[25'000];
+	in.rdbuf()->pubsetbuf(winbuf, 25'000);
+	basic_filebuf<wchar_t> inbuf;
+	string path;
 	do
 	{
 		cout << "Input File path: ";
-		string path;
 		getline(cin, path);
 		cout << endl; // For better formatting
 		in.open(path, ios::in);
@@ -122,6 +125,8 @@ void GetFile(wifstream& in)
 			in.clear();
 		}
 	} while (!in);
+	inbuf.open(path, ios::in);
+	
 }	
 
 
