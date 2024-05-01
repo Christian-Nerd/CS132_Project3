@@ -13,10 +13,6 @@ project ("CS132_Project3")
 # Add source to this project's executable.
 add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp" "Quicksort.h" "Quicksort.cpp")
 set_property(TARGET CS132_Project3 PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
-message( "Hey "${PROJECT_SOURCE_DIR})
-set(lol "")
-get_property(lol TARGET CS132_Project3 PROPERTY VS_DEBUGGER_WORKING_DIRECTORY)
-message( "Hi  "${lol})
 add_library(QuickSort.lib UNKNOWN IMPORTED)
 target_link_libraries(QuickSort.lib)
 

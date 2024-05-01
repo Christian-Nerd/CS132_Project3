@@ -110,8 +110,7 @@ bool IsAscii(wchar_t Character)
 void GetFile(wifstream& in)
 {
 	wchar_t winbuf[25'000];
-	in.rdbuf()->pubsetbuf(winbuf, 25'000);
-	basic_filebuf<wchar_t> inbuf;
+	basic_filebuf inbuf;
 	string path;
 	do
 	{
@@ -125,8 +124,7 @@ void GetFile(wifstream& in)
 			in.clear();
 		}
 	} while (!in);
-	inbuf.open(path, ios::in);
-	
+	in.rdbuf()->pubsetbuf(winbuf, 25'000);
 }	
 
 
@@ -235,9 +233,7 @@ void DisplayList(BST<Word> list[], wostream& out)
 {
 	for (int i = 0; i < 26; i++)
 	{
-		cout << !out;
 		list[i].inorder(out);
-		cout << !out;
 		out.clear();
 		out << endl;
 	}
