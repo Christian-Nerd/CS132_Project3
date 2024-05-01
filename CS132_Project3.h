@@ -61,7 +61,7 @@ bool InWord(char Current, char Next); // Checks two characters to see if you're 
 void TruncateNonAlphaChars(Word&);
 void InitializeList(BST<Word>[], std::ifstream& in);
 void DisplayList(BST<Word>[], std::ostream& out);
-void ChooseOperation(BST<Word>[], std::istream& in);
+bool ChooseOperation(BST<Word>[], std::istream& in);
 bool DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>

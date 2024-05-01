@@ -166,7 +166,7 @@ void TruncateNonAlphaChars(Word& term)
 			if (isalpha(CurrentCharacter))
 			{
 				// Truncate alphabet characters at the beginning of the word
-				Phrase = Phrase.substr(i, Phrase.size() - 1);
+				Phrase = Phrase.substr(i, Phrase.size());
 				break;
 			}
 			// If there's no alphabetic characters in the list make phrase blank
@@ -198,6 +198,7 @@ void InitializeList(BST<Word> list[], ifstream& file)
 		// Use count to find current line
 		LineNumber += NextWord.GetCount();
 		TruncateNonAlphaChars(NextWord);
+		string debugWord = NextWord.GetWord();
 		AlphabetIndex =  NextWord.GetWord() != ""? tolower(NextWord.GetWord().at(0)) - 97 : -1;
 		if (AlphabetIndex == -1) // If word does not have an alphabetic first character get the next one
 			continue;
@@ -225,10 +226,11 @@ void DisplayList(BST<Word> list[], ostream& out)
 	}
 }
 
-void ChooseOperation(BST<Word> list[], istream& in)
+bool ChooseOperation(BST<Word> list[], istream& in)
 {
 	cout << "Do you want to display all the words in the list or retrieve a specific one? ";
 	string choice = "";
+	bool persist = true;
 	cin >> choice;
 	transform(choice.begin(), choice.end(), choice.begin(), tolower); // Convert string to lowercase 
 	if (choice == "display" || choice == "display words" || choice == "show" || choice == "show words" || choice == "all")
@@ -264,9 +266,17 @@ void ChooseOperation(BST<Word> list[], istream& in)
 					break;
 				}
 			}
-		}while (!ValidWord);
+		} while (!ValidWord);
 	}
+
+	else if (choice == "exit" || choice == "stop" || choice == "quit" || choice == "end")
+	{
+		persist = false;
+		cerr << "Goodbye";
+	}
+
 	in.clear();
+	return persist;
 }
 
 bool DoesUserWantToContinue() 
