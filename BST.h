@@ -312,6 +312,7 @@ inline void BST<DataType>::inorder(std::ostream & out) const
    inorderAux(out, myRoot); 
 }
 
+//--- Overload of inorder()
 template <typename DataType>
 inline void BST<DataType>::inorder(std::wostream & out) const
 { 
@@ -363,8 +364,6 @@ void BST<DataType>::inorderAux(std::ostream & out,
       inorderAux(out, subtreeRoot->right);   // R operation
    }
 }
-
-
 
 //--- Overload of inorderAux()
 template <typename DataType>

@@ -87,6 +87,11 @@ wstring Word::operator= (wstring term2)
 	return term2;
 }
 
+bool IsAscii(wchar_t Character)
+{
+	return Character > -1 && Character <= 255;
+}
+
 void GetFile(wifstream& in)
 {
 	do
@@ -123,23 +128,12 @@ wistream& operator>>(std::wistream& in, Word& word)
 	wstring NewWord = L"";
 	while (true) 
 	{
-		if (!(CurrentStreamCharacter >= -1 && CurrentStreamCharacter <= 255))
-		{
-			CurrentStreamCharacter = in.get();
-			if (!in)
-			{
-				in.clear();
-				break;
-			}
-			continue;
-		}
-
 		if (CurrentStreamCharacter == '\n')
 		{
 			word.IncrementCount(); // Increments count to indicate current line
 		}
 		NewWord.push_back(CurrentStreamCharacter);
-		if (!isspace(CurrentStreamCharacter) && isspace(in.peek()) || !in /* Checks if in.peek() returns eof since associativity is left to right*/) 
+		if (!iswspace(CurrentStreamCharacter) && iswspace(in.peek()) || !in /* Checks if in.peek() returns eof since associativity is left to right*/) 
 		{
 			word.SetFirstFind(word.GetFirstFind() + word.GetCount()); // Uses count to assign current line to
 			word.SetWord(NewWord);
@@ -160,8 +154,9 @@ void TruncateNonAlphaChars(Word& term)
 		//Find non alphabet characters at beginning of word
 		for (int i = 0; i < Phrase.size(); i++)
 		{
-			char CurrentCharacter = Phrase.at(i);
-			if (isalpha(CurrentCharacter))
+			wchar_t CurrentCharacter = Phrase.at(i);
+			// Checks if CurrentCharacter is alphabetical and not a Byte Order Mark
+			if (iswalpha(CurrentCharacter) && IsAscii(CurrentCharacter) && CurrentCharacter != L'\uFFBB' && CurrentCharacter != L'\uFEFF')
 			{
 				// Truncate alphabet characters at the beginning of the word
 				Phrase = Phrase.substr(i, Phrase.size());
@@ -175,8 +170,8 @@ void TruncateNonAlphaChars(Word& term)
 		//Find non alphabet characters at end of word
 		for (int i = Phrase.size() - 1; i > -1 && Phrase != L""; i--)
 		{
-			char CurrentCharacter = Phrase.at(i);
-			if (isalpha(CurrentCharacter))
+			wchar_t CurrentCharacter = Phrase.at(i);
+			if (iswalpha(CurrentCharacter))
 			{
 				Phrase = Phrase.substr(0, i+1);
 				break;
@@ -197,7 +192,7 @@ void InitializeList(BST<Word> list[], wifstream& file)
 		LineNumber += NextWord.GetCount();
 		TruncateNonAlphaChars(NextWord);
 		wstring debugWord = NextWord.GetWord();
-		AlphabetIndex =  NextWord.GetWord() != L""? towlower(NextWord.GetWord().at(0)) - 97 : -1;
+		AlphabetIndex =  NextWord.GetWord() != L"" && IsAscii(NextWord.GetWord().at(0))? towlower(NextWord.GetWord().at(0)) - 97 : -1;
 		if (AlphabetIndex == -1) // If word does not have an alphabetic first character get the next one
 			continue;
 		// If not found insert the word if found increment the word's count
