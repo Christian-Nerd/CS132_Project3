@@ -14,6 +14,7 @@
 #include <vector>
 #include <stdio.h>
 #include "BST.h"
+#include "uni-algo\include\uni_algo\all.h"
 // TODO: Reference additional headers your program requires here.
 struct Word
 {

@@ -6,12 +6,12 @@ using namespace std;
 
 void Word::toUpper() 
 {
-	transform(this->MyWord.begin(), this->MyWord.end(), this->MyWord.begin(), std::toupper);
+	una::cases::to_uppercase_utf16(this->MyWord);
 }
 
 void Word::toLower() 
 {
-	transform(this->MyWord.begin(), this->MyWord.end(), this->MyWord.begin(), std::tolower);
+	una::cases::to_casefold_utf16(this->MyWord);
 }
 
 void Word::SetWord(wstring Word) 
@@ -109,8 +109,6 @@ bool IsAscii(wchar_t Character)
 
 void GetFile(wifstream& in)
 {
-	wchar_t winbuf[25'000];
-	basic_filebuf inbuf;
 	string path;
 	do
 	{
@@ -124,7 +122,6 @@ void GetFile(wifstream& in)
 			in.clear();
 		}
 	} while (!in);
-	in.rdbuf()->pubsetbuf(winbuf, 25'000);
 }	
 
 
@@ -142,28 +139,21 @@ wostream& operator<<(std::wostream& out, Word& word)
 
 wistream& operator>>(std::wistream& in, Word& word) 
 {
-	wchar_t CurrentStreamCharacter; 
-	in.get(CurrentStreamCharacter);
 	wstring NewWord = L"";
-	while (true) 
+	wstring NewLine = L"";
+	wstringstream NewWordStream;
+	getline<wchar_t>(in, NewLine, '\n');
+	NewWordStream.str(NewLine);
+	while (NewWordStream) 
 	{
-		if (CurrentStreamCharacter == '\n')
+		NewWordStream >> NewWord;
+		if (!NewWordStream && NewWord != L"") // Checks if the line has the word 
 		{
 			word.IncrementCount(); // Increments count to indicate current line
 		}
-		NewWord.push_back(CurrentStreamCharacter);
-		if (!iswspace(CurrentStreamCharacter) && iswspace(in.peek()) || !in /* Checks if in.peek() returns eof since associativity is left to right*/) 
-		{
-			word.SetFirstFind(word.GetFirstFind() + word.GetCount()); // Uses count to assign current line to
-			word.SetWord(NewWord);
-			if (!in)
-			{
-				return in;
-			}
-			break;
-		}
-		CurrentStreamCharacter = in.get();
 	}
+	una::utf8to16<wchar_t, wchar_t>(NewWord);
+	word.SetWord(NewWord);
 	return in;
 }
 
@@ -205,10 +195,8 @@ void InitializeList(BST<Word> list[], wifstream& file)
 	while (file)
 	{
 		Word NextWord;
-		NextWord.SetFirstFind(LineNumber);
+		NextWord.SetFirstFind(++LineNumber);
 		file >> NextWord;
-		// Use count to find current line
-		LineNumber += NextWord.GetCount();
 		TruncateNonAlphaChars(NextWord);
 		wstring debugWord = NextWord.GetWord();
 		AlphabetIndex =  NextWord.GetWord() != L"" && IsAscii(NextWord.GetWord().at(0))? towlower(NextWord.GetWord().at(0)) - 97 : -1;
@@ -218,11 +206,11 @@ void InitializeList(BST<Word> list[], wifstream& file)
 		if(!list[AlphabetIndex].search(NextWord))
 		{
 			list[AlphabetIndex].insert(NextWord);
-			list[AlphabetIndex].get(NextWord).IncrementCount();
+			list[AlphabetIndex].get(NextWord).SetCount(NextWord.GetCount());
 		}
 		else
 		{
-			list[AlphabetIndex].get(NextWord).IncrementCount();
+			list[AlphabetIndex].get(NextWord).SetCount(NextWord.GetCount());
 		}
 	}
 	file.clear();
