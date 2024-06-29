@@ -13,6 +13,7 @@ project ("CS132_Project3")
 # Add source to this project's executable.
 add_executable (CS132_Project3 "CS132_Project3.cpp" "CS132_Project3.h" "CS132_Project3_Driver.cpp" "CS132_Project3_Driver.cpp" "Quicksort.h" "Quicksort.cpp")
 set_property(TARGET CS132_Project3 PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
+set_property(TARGET CS132_Project3 PROPERTY WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
 add_library(QuickSort.lib UNKNOWN IMPORTED)
 # CMake option example (enable header-only version)
 # set(UNI_ALGO_HEADER_ONLY ON CACHE INTERNAL "")

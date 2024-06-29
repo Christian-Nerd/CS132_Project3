@@ -2,6 +2,7 @@
 //
 
 #include "CS132_Project3.h"
+#include <consoleapi2.h>
 using namespace std;
 
 void Word::toUpper() 
@@ -132,6 +133,7 @@ bool InWord(char Current, char Next)
 
 wostream& operator<<(std::wostream& out, Word& word) 
 {
+	SetConsoleOutputCP(1200);
 	out << word.MyWord << "  First Found at Line " << word.FirstOccurance << " and was found " << word.count << " times " << endl;
 	return out;
 }
@@ -139,21 +141,28 @@ wostream& operator<<(std::wostream& out, Word& word)
 
 wistream& operator>>(std::wistream& in, Word& word) 
 {
+	wchar_t CurrentStreamCharacter; 
+	in.get(CurrentStreamCharacter);
 	wstring NewWord = L"";
-	wstring NewLine = L"";
-	wstringstream NewWordStream;
-	getline<wchar_t>(in, NewLine, '\n');
-	NewWordStream.str(NewLine);
-	while (NewWordStream) 
+	while (true) 
 	{
-		NewWordStream >> NewWord;
-		if (!NewWordStream && NewWord != L"") // Checks if the line has the word 
+		if (CurrentStreamCharacter == '\n')
 		{
 			word.IncrementCount(); // Increments count to indicate current line
 		}
+		NewWord.push_back(CurrentStreamCharacter);
+		if (!iswspace(CurrentStreamCharacter) && iswspace(in.peek()) || !in /* Checks if in.peek() returns eof since associativity is left to right*/) 
+		{
+			una::utf8to16<wchar_t, wchar_t>(NewWord);
+			word.SetWord(NewWord);
+			if (!in)
+			{
+				return in;
+			}
+			break;
+		}
+		CurrentStreamCharacter = in.get();
 	}
-	una::utf8to16<wchar_t, wchar_t>(NewWord);
-	word.SetWord(NewWord);
 	return in;
 }
 
@@ -191,12 +200,15 @@ void TruncateNonAlphaChars(Word& term)
 
 void InitializeList(BST<Word> list[], wifstream& file)
 {
-	int Count = 0, AlphabetIndex = 0, LineNumber = 1;
+	int Count = 0, AlphabetIndex = 0, LineNumber = 0;
 	while (file)
 	{
 		Word NextWord;
-		NextWord.SetFirstFind(++LineNumber);
+		NextWord.SetFirstFind(LineNumber);
 		file >> NextWord;
+		// Use count to find current line
+		LineNumber += NextWord.GetCount();
+		NextWord.SetFirstFind(LineNumber);
 		TruncateNonAlphaChars(NextWord);
 		wstring debugWord = NextWord.GetWord();
 		AlphabetIndex =  NextWord.GetWord() != L"" && IsAscii(NextWord.GetWord().at(0))? towlower(NextWord.GetWord().at(0)) - 97 : -1;
@@ -206,11 +218,11 @@ void InitializeList(BST<Word> list[], wifstream& file)
 		if(!list[AlphabetIndex].search(NextWord))
 		{
 			list[AlphabetIndex].insert(NextWord);
-			list[AlphabetIndex].get(NextWord).SetCount(NextWord.GetCount());
+			list[AlphabetIndex].get(NextWord).IncrementCount();
 		}
 		else
 		{
-			list[AlphabetIndex].get(NextWord).SetCount(NextWord.GetCount());
+			list[AlphabetIndex].get(NextWord).IncrementCount();
 		}
 	}
 	file.clear();
@@ -237,6 +249,9 @@ bool ChooseOperation(BST<Word> list[], wistream& in)
 	if (choice == "display" || choice == "display words" || choice == "show" || choice == "show words" || choice == "all")
 	{
 		wofstream out;
+		// Change buffer of ouput stream from char to wchar_t
+		wchar_t* buffer = new wchar_t[500];
+		out.rdbuf()->pubsetbuf(buffer, 500);
 		out.open("List", ios::out);
 		DisplayList(list, wcout);
 		DisplayList(list, out);
