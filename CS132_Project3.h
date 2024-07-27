@@ -24,16 +24,16 @@ struct Word
 	private:
 		int FirstOccurance;
 		int count = 0;
-		std::wstring MyWord;
+		std::string MyWord;
 	// Functions
 public:
 	void toUpper();
 	void toLower();
-	void SetWord(std::wstring);
+	void SetWord(std::string);
 	void SetFirstFind(int);
 	void SetCount(int);
 	void IncrementCount();
-	std::wstring GetWord();
+	std::string GetWord();
 	int GetFirstFind();
 	int GetCount();
 	// Template Operators
@@ -49,10 +49,10 @@ public:
 	bool friend operator== (T, Word);
 	template<typename T>
 	bool friend operator== (Word, T);
-	friend std::wostream& operator<<(std::wostream& out, Word& word);
-	friend std::wistream& operator>>(std::wistream& in, Word& word);
+	friend std::ostream& operator<<(std::ostream& out, Word& word);
+	friend std::istream& operator>>(std::istream& in, Word& word);
 	Word operator= (Word);
-	std::wstring operator= (std::wstring);
+	std::string operator= (std::string);
 };
 // Operators
 bool operator< (Word, Word);
@@ -61,13 +61,14 @@ bool operator<= (Word, Word);
 bool operator>= (Word, Word);
 bool operator== (Word, Word);
 // Function Headers
-bool IsAscii(wchar_t);
-void GetFile(std::wifstream&);
+bool IsValidCharacter(char);
+bool IsAscii(char);
+void GetFile(std::ifstream&);
 bool InWord(char Current, char Next); // Checks two characters to see if you're in a word  
 void TruncateNonAlphaChars(Word&);
-void InitializeList(BST<Word>[], std::wifstream& in);
-void DisplayList(BST<Word>[], std::wostream& out);
-bool ChooseOperation(BST<Word>[], std::wistream& in);
+void InitializeList(BST<Word>[], std::ifstream& in);
+void DisplayList(BST<Word>[], std::ostream& out);
+bool ChooseOperation(BST<Word>[], std::istream& in);
 bool DoesUserWantToContinue();
 // Implementation for template functions
 	template<typename T>
